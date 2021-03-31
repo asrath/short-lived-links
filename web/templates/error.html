@@ -1,0 +1,10 @@
+<div id="main">
+    <div class="alert alert-danger">
+        <strong>{{.errMsg}}</strong> You'll be redirected to <a href="/" class="alert-link">Home</a> in 5s.
+    </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            setTimeout(function () { window.location.href = "/" }, 5000);
+        });
+    </script>
+</div>

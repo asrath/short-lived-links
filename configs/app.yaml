@@ -1,0 +1,9 @@
+app:
+  title: ${SLL_TITLE|Short Lived Links}
+  logoText: ${SLL_LOGO_TEXT|SLL}
+  pasteStoragePath: ${SLL_PASTES_PATH|/var/sll/pastes}
+  expirations: 
+    1t: Destroy after read
+    1d: Expire in 1 day
+    2d: Expire in 2 days
+    never: Doesn't expire
