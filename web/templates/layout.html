@@ -1,0 +1,34 @@
+{{ template "_base" . }}
+{{ define "body" }}
+<div id="app" class="">
+    <div class="topnav">
+        <a href="/" class="brand">{{ .logo_text }}</a>
+        <span class="tagline">"Short Lived Links"<br>
+            <span>Encrypted content links with short live time</span>
+        </span>
+        <nav>
+            <ul>
+            </ul>
+        </nav>
+    </div>
+    <!-- <noscript class="container noscript">
+        <p>This pastebin uses client-side encryption. Therefore, it needs JavaScript enabled.</p>
+        <p>It seems like your browser doesn't have JavaScript enable.</p>
+        <p>Please enable JavaScript for this website or use a JavaScript-capable web browser.</p>
+    </noscript> -->
+    <div id="wrap-content" class="container-md">
+        {{ embed }}
+    </div>
+    <footer class="footer">
+        <ul>
+            <li><a href="https://github.com/asrath/short-lived-links">Github</a></li>
+            <li><a href="/faq/">Faq</a></li>
+            <!-- <li>
+                <span title="mailto:" class="email-link">
+                    Contact
+                </span>
+            </li> -->
+        </ul>
+    </footer>
+</div>
+{{ end }}

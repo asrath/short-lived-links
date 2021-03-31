@@ -1,0 +1,59 @@
+<div id="main">
+    <div id="paste-warning" class="jumbotron"{{ if eq .recoveryKey "" }} style="display:none"{{ end }}>
+        {{ if eq .ttl "1t" }}
+        <h1 class="display-3">This message will self destruct!</h1>
+        <p class="lead">Once viewed you can not view this note again. If you need access to this information again please copy it to a secure location.</p>
+        {{ else }}
+        <h1 class="display-3">Paste found</h1>
+        <p class="lead">This paste expiration is set to {{ .ttl }}.</p>
+        {{ end }}
+        <p class="lead">
+            <a id="btn-paste-view" class="btn btn-primary btn-lg" href="#" role="button">View paste</a>
+        </p>
+    </div>
+
+    <div class="form-wrapper"{{ if ne .recoveryKey "" }} style="display:none"{{ end }}>
+        <form id="paste-create-form" method="post" class="well">
+            <input type="hidden" id="recovery-key" value="{{ .recoveryKey }}" />
+            <div id="paste-create-controls" class="d-flex justify-content-between">
+                <div id="paste-file-upload">
+                    <div class="file-upload"><label type="button" class="btn btn-primary upload-file">Upload file
+                            <input type="file" id="file-upload" class="hide-upload"></label></div>
+                </div>
+                <div id="paste-content-copy" style="display:none">
+                    <div class="file-upload">
+                        <button id="btn-paste-content-copy" type="button" class="btn btn-success">Copy contents</button>
+                    </div>
+                </div>
+                <div class="form-group select-date paste-option">
+                    <div class="input-group"><select id="expiration" name="expiration" class="custom-select">
+                            <option value="1t">Destroy after read</option>
+                            <!-- <option selected="selected" value="1d">Expire in 1 day</option>
+                            <option selected="selected" value="1d">Expire in 2 days</option>
+                            <option value="never">Never expire</option> -->
+                        </select>
+                        <div class="input-group-append"><button id="btn-paste-submit" type="submit"
+                                class="btn btn-primary">Submit</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <textarea rows="10" id="content" name="content" autofocus="autofocus" class="form-control" style="height:248px;overflow-y:hidden;"></textarea>
+        </form>
+    </div>
+
+    <div class="result-wrapper" style="display:none">
+        <div class="card text-white bg-secondary border-success mb-12">
+            <div class="card-header">Your paste link</div>
+            <div class="card-body">
+                <p class="card-text"><input class="form-control" id="paste-url" type="text" readonly=""></p>
+                <a id="link-paste-url-copy" href="#" class="card-link">copy link</a>
+                <a href="/" class="card-link">paste again</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ define "js" }}
+<script type="text/javascript" src="/static/js/home.js"></script>
+{{ end }}

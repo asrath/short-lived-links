@@ -1,0 +1,26 @@
+{{ define "_base" }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <title>{{ .title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="icon" href="/static/img/favicon.ico" />
+
+    <link href="/static/css/prettify.css" rel="stylesheet" />
+    <link href="/static/css/desert.css" rel="stylesheet" />
+    <link href="/static/css/bootswatch.4.5.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+
+    {{ block "head" . }}{{ end }}
+</head>
+
+<body>
+    {{ block "body" . }}{{ end }}
+    {{ block "js" . }}{{ end }}
+</body>
+
+</html>
+{{ end }}
