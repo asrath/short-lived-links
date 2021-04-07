@@ -15,6 +15,7 @@ ADD configs/app.yaml /opt/sll/app.yaml
 ADD web /opt/sll/web
 
 RUN mkdir -p /var/sll/pastes
+VOLUME ["/var/sll/pastes"]
 
 WORKDIR /opt/sll
 
