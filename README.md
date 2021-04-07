@@ -5,6 +5,8 @@ Short lived links to share passwords, files and other stuff
 
 The provided docker image can be customized by bind mounting custom config file to `/opt/sll/app.yaml` or using environment variables.
 
+Also the image defines a volume pointing to `/var/sll/pastes`
+
 The supported environment variables are:
 * SLL_TITLE (default: Short Lived Links)
 * SLL_LOGO_TEXT (default: SLL)
@@ -13,6 +15,9 @@ The supported environment variables are:
 ## Development
 
 This repository is prepared to work out of the box in VSCode with Go extension and Dev Containers.
+
+## CI
+Github Actions is used for CI (source: https://dev.to/techschoolguru/how-to-setup-github-actions-for-go-postgres-to-run-automated-tests-81o)
 
 ## TODO
 * Enable more expirations and implement expired pastes cleanup
