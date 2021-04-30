@@ -8,7 +8,6 @@ RUN go get -d -v ./...
 RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd
 
 FROM alpine:3.7
-LABEL mantainer="cgc255@gmail.com"
 
 COPY --from=builder /go/src/github.com/asrath/short-lived-links/app /opt/sll/app
 ADD configs/app.yaml /opt/sll/app.yaml
