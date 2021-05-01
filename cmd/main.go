@@ -2,16 +2,26 @@ package main
 
 import (
 	"log"
+	"time"
 
 	"github.com/asrath/short-lived-links/pkg/api"
 	"github.com/asrath/short-lived-links/pkg/config"
 	"github.com/asrath/short-lived-links/pkg/home"
+	"github.com/asrath/short-lived-links/pkg/storage/paste"
+	"github.com/go-co-op/gocron"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html"
 )
 
 func main() {
 	cfg := config.GetConfig()
+
+	s := gocron.NewScheduler(time.UTC)
+	s.Every(1).Hour().Do(func() {
+		paste.ExpireOld(cfg.App.PasteStoragePath)
+	})
+	s.StartAsync()
+
 	engine := html.New("./web/templates", ".html")
 	engine.Reload(true)
 	engine.Debug(true)
