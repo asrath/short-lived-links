@@ -15,7 +15,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 persistentVolume:
-  create: true
+  create: false
   storageClass: gp2
   size: 20Gi
 
