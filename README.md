@@ -41,6 +41,5 @@ This repository is prepared to work out of the box in VSCode with Go extension a
 Github Actions is used for CI (source: https://dev.to/techschoolguru/how-to-setup-github-actions-for-go-postgres-to-run-automated-tests-81o)
 
 ## TODO
-* Enable more expirations and implement expired pastes cleanup (https://github.com/go-co-op/gocron)
 * Refactor UI to use vue or react
 * Implement client side encryption and add option in config
