@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 // TTL time to live for pastes
@@ -136,10 +137,7 @@ func (p *paste) populateFilename() error {
 }
 
 func (p *paste) populateTTL() {
-	data := strings.Split(p.Filename, ".")
-	data = strings.Split(data[0], "-")
-
-	p.TTL = TTL(data[1])
+	p.TTL = TTL(parseTTLFromFilename(p.Filename))
 }
 
 func (p *paste) Encrypt() error {
@@ -216,7 +214,7 @@ func (p *paste) GetInfo() error {
 		return err
 	}
 
-	matches, _ := filepath.Glob(DefaultStoragePath + ps + filenamePrefix + "-*.paste")
+	matches, _ := filepath.Glob(p.StoragePath + ps + filenamePrefix + "-*.paste")
 	for _, match := range matches {
 		p.Filename = filepath.Base(match)
 	}
@@ -248,7 +246,7 @@ func (p *paste) Save(content string) error {
 	}
 
 	// the WriteFile method returns an error if unsuccessful
-	if err := ioutil.WriteFile(DefaultStoragePath+ps+p.Filename, p.EncryptedContent, 0664); err != nil {
+	if err := ioutil.WriteFile(p.StoragePath+ps+p.Filename, p.EncryptedContent, 0664); err != nil {
 		return NewError(500, "Could not save paste")
 	}
 
@@ -262,7 +260,7 @@ func (p *paste) Retrieve() error {
 		return err
 	}
 
-	pastePath := DefaultStoragePath + ps + p.Filename
+	pastePath := p.StoragePath + ps + p.Filename
 
 	ciphertext, err := ioutil.ReadFile(pastePath)
 	if err != nil {
@@ -310,4 +308,49 @@ func Load(recoveryKey string, storagePath ...string) paste {
 func NewError(code int, message string) *Error {
 	e := &Error{Code: code, Message: message}
 	return e
+}
+
+func parseTTLFromFilename(filename string) TTL {
+	data := strings.Split(filename, ".")
+	data = strings.Split(data[0], "-")
+	ttl := TTL(data[1])
+
+	return ttl
+}
+
+func getDurationByTTL(ttl TTL) time.Duration {
+	var durations = make(map[TTL]time.Duration)
+
+	durations[OneDay] = 1 * 24 * time.Hour
+	durations[TwoDay] = 2 * 24 * time.Hour
+
+	return durations[ttl]
+}
+
+func ExpireOld(storagePath string) error {
+	ps := string(os.PathSeparator)
+	matches, _ := filepath.Glob(storagePath + ps + "*.paste")
+	for _, file := range matches {
+		filename := filepath.Base(file)
+		ttl := parseTTLFromFilename(filename)
+
+		// pastes with OneTime TTL are destroyed on retrieval
+		if ttl != OneTime {
+			stats, err := os.Stat(file)
+			if err != nil {
+				return err
+			}
+
+			modTs := stats.ModTime()
+			now := time.Now()
+
+			modTs.Add(getDurationByTTL(ttl))
+
+			if modTs.Unix() >= now.Unix() {
+				os.Remove(file)
+			}
+
+		}
+	}
+	return nil
 }
