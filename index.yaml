@@ -3,7 +3,17 @@ entries:
   short-lived-links:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-05-01T11:26:27.137818071+02:00"
+    created: "2021-05-01T12:12:46.487333614+02:00"
+    description: Short lived links to share passwords, files and other stuff
+    digest: 794f54333dba099355b4ec64db2edcd697bd3ae59b54e8e408cc9fbaee86aef2
+    name: short-lived-links
+    type: application
+    urls:
+    - https://asrath.github.io/short-lived-links/short-lived-links-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-05-01T12:12:46.486912955+02:00"
     description: Short lived links to share passwords, files and other stuff
     digest: 09606535781a0367b8b29a5c04764298aeff4e151a0713a7c0434afb296c8d2e
     name: short-lived-links
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://asrath.github.io/short-lived-links/short-lived-links-0.1.0.tgz
     version: 0.1.0
-generated: "2021-05-01T11:26:27.137182479+02:00"
+generated: "2021-05-01T12:12:46.486415711+02:00"
